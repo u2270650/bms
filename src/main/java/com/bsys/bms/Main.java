@@ -17,15 +17,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Stage stage = new Stage();
-        stage.getIcons().add(new Image(Main.class.getResource("images/logo.png").openStream()));
-        String fxmlFile = "manager-view.fxml";
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlFile));
-        Pane layout = loader.load();
+        int w = 1000; int h = 600; // static width and height for the window
+        int clerk_count = 2;
+        SceneController.createWindow("Manager Dashboard", "manager-view.fxml", w, h); // display the manager interface
 
-        Scene scene = new Scene(layout, 300, 300);
-        stage.setScene(scene);
-        stage.setTitle("Hello World!");
-        stage.show();
+        for(int i = 1; i<= clerk_count; i++) {
+            SceneController.createWindow("Clerk "+i+" Dashboard", "clerk-view.fxml", w, h); // display the manager interface
+        }
     }
 }
