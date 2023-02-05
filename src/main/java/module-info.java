@@ -7,6 +7,7 @@ module com.bsys.bms {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens com.bsys.bms to javafx.fxml;
     exports com.bsys.bms;
