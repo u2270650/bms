@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.SceneController">
+    <children>
+        <AnchorPane style="-fx-background-color: #263f73;">
+            <children>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="7.0" prefHeight="39.0" prefWidth="322.0" text="Huddersfield University of Excellence" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                    <font>
+                        <Font name="Bookman Old Style" size="16.0" />
+                    </font>
+                </Label>
+                <Label fx:id="loginName" alignment="CENTER" layoutX="840.0" layoutY="7.0" prefHeight="39.0" prefWidth="145.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                    <font>
+                        <Font name="Bookman Old Style" size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <Label fx:id="pageTitle" layoutX="26.0" layoutY="69.0">
+            <font>
+                <Font name="Consolas Bold" size="24.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

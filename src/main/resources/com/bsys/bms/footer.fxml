@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" text="Copyrights © 2023 | GULGER MALLIK (U2270650) | All Rights Reserved." textFill="#4482c7">
+            <font>
+                <Font name="Consolas Bold" size="9.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
