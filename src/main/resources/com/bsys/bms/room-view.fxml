@@ -7,14 +7,9 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.RoomController">
     <!--        Header:start-->
     <fx:include source="header.fxml" />
-    <Label fx:id="pageTitle" layoutX="26.0" layoutY="55.0" text="ROOMS">
-        <font>
-            <Font name="Consolas Bold" size="24.0" />
-        </font>
-    </Label>
     <!--        Header: end-->
 
-    <AnchorPane layoutY="52.0" prefHeight="130" prefWidth="1000">
+    <AnchorPane layoutY="47.0" prefHeight="127.0" prefWidth="1000.0">
         <children>
             <TitledPane layoutX="25" layoutY="45" prefHeight="85.0" prefWidth="950" text="Filters">
                 <content>
@@ -30,6 +25,12 @@
                     </AnchorPane>
                 </content>
             </TitledPane>
+            <Button layoutX="901.0" layoutY="13.0" mnemonicParsing="false" text="Add Room" />
+            <Label fx:id="pageTitle" layoutX="25.0" layoutY="13.0" text="Rooms">
+                <font>
+                    <Font name="Consolas Bold" size="24.0" />
+                </font>
+            </Label>
         </children>
     </AnchorPane>
     <ScrollPane layoutX="25.0" layoutY="178.0" prefHeight="402.0">
@@ -41,9 +42,11 @@
                     <TableColumn fx:id="room_type" text="Room Type" />
                     <TableColumn fx:id="room_capacity" text="Capacity" />
                     <TableColumn fx:id="room_detail" prefWidth="300" text="Details" />
+                    <TableColumn fx:id="active_bookings" prefWidth="100" text="Active Bookings" />
                     <TableColumn fx:id="action" text="Action" />
                 </columns>
             </TableView>
         </content>
     </ScrollPane>
+    <fx:include source="footer.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="610.0" />
 </AnchorPane>
