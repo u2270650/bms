@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.bsys.bms.RoomController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.RoomController">
+    <!--        Header:start-->
+    <fx:include source="header.fxml" />
+    <Label fx:id="pageTitle" layoutX="26.0" layoutY="55.0" text="ROOMS">
+        <font>
+            <Font name="Consolas Bold" size="24.0" />
+        </font>
+    </Label>
+    <!--        Header: end-->
 
+    <AnchorPane layoutY="52.0" prefHeight="130" prefWidth="1000">
+        <children>
+            <TitledPane layoutX="25" layoutY="45" prefHeight="85.0" prefWidth="950" text="Filters">
+                <content>
+                    <AnchorPane minHeight="7.0" minWidth="0.0" prefHeight="175.0" prefWidth="400.0">
+                        <children>
+                            <Label layoutX="14.0" layoutY="5.0" text="Keywords" />
+                            <TextField fx:id="txtkeyword" layoutX="14.0" layoutY="22.0" />
+                            <Label layoutX="173.0" layoutY="4.0" text="Room Type" />
+                            <ComboBox fx:id="cmbtype" layoutX="173.0" layoutY="21.0" prefHeight="26.0" prefWidth="92.0" />
+                            <Button fx:id="btn_search" layoutX="281.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleFilters" text="Search" />
+                            <Button fx:id="btn_reset" layoutX="344.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleReset" text="Reset" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </TitledPane>
+        </children>
+    </AnchorPane>
+    <ScrollPane layoutX="25.0" layoutY="178.0" prefHeight="402.0">
+        <content>
+            <TableView fx:id="tableView" prefHeight="400.0" prefWidth="949.0">
+                <columns>
+                    <TableColumn fx:id="sr_num" prefWidth="40" text="#" />
+                    <TableColumn fx:id="room_name" text="Room Name" />
+                    <TableColumn fx:id="room_type" text="Room Type" />
+                    <TableColumn fx:id="room_capacity" text="Capacity" />
+                    <TableColumn fx:id="room_detail" prefWidth="300" text="Details" />
+                    <TableColumn fx:id="action" text="Action" />
+                </columns>
+            </TableView>
+        </content>
+    </ScrollPane>
 </AnchorPane>

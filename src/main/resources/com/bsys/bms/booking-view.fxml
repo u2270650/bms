@@ -17,6 +17,14 @@
             fx:controller="com.bsys.bms.BookingController"
             prefHeight="400.0" prefWidth="600.0">
     <children>
+<!--        Header:start-->
+        <fx:include source="header.fxml" />
+        <Label fx:id="pageTitle" layoutX="26.0" layoutY="69.0">
+            <font>
+                <Font name="Consolas Bold" size="24.0" />
+            </font>
+        </Label>
+<!--        Header: end-->
         <AnchorPane layoutY="52.0" prefHeight="127.0" prefWidth="1000.0">
             <children>
                 <TitledPane layoutX="25.0" layoutY="45.0" prefHeight="82.0" prefWidth="962.0" text="Filters">
@@ -63,5 +71,6 @@
                 </TableView>
             </content>
         </ScrollPane>
+        <fx:include source="footer.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="610.0" />
     </children>
 </AnchorPane>
