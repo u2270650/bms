@@ -25,7 +25,7 @@
                     </AnchorPane>
                 </content>
             </TitledPane>
-            <Button layoutX="901.0" layoutY="13.0" mnemonicParsing="false" text="Add Room" />
+            <Button fx:id="btnadd_room" layoutX="901.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleAddRoom" text="Add Room" />
             <Label fx:id="pageTitle" layoutX="25.0" layoutY="13.0" text="Rooms">
                 <font>
                     <Font name="Consolas Bold" size="24.0" />
