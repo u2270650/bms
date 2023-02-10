@@ -21,6 +21,22 @@ public class BookingController {
     private void initialize() {
 
     }
+
+    public void handleAddBooking(ActionEvent event) throws IOException {
+        SceneController.changeScene(event, "booking-edit.fxml");
+    }
+
+    public void handleBack(ActionEvent event) throws IOException {
+        SceneController.changeScene(event, "booking-view.fxml");
+    }
+
+    public void checkAvailability(ActionEvent event) throws IOException {
+
+    }
+
+    public void saveBooking(ActionEvent event) throws IOException {
+        SceneController.changeScene(event, "booking-view.fxml");
+    }
     private ObservableList<Rooms> loadBookings(String filter_param) {
 
         ObservableList<Rooms> data = FXCollections.observableArrayList();

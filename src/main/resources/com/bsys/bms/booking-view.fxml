@@ -33,12 +33,12 @@
                         </AnchorPane>
                     </content>
                 </TitledPane>
-            <Button layoutX="933.0" layoutY="14.0" mnemonicParsing="false" text="Rooms" />
               <Label fx:id="pageTitle" layoutX="25.0" layoutY="13.0" text="Bookings">
                   <font>
                       <Font name="Consolas Bold" size="24.0" />
                   </font>
               </Label>
+            <Button fx:id="btnadd_booking" layoutX="901.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddBooking" text="New Booking" />
             </children>
         </AnchorPane>
         <ScrollPane layoutX="25.0" layoutY="178.0" prefHeight="402.0">
