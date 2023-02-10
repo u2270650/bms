@@ -14,11 +14,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * SceneController class is responsible for managing the scenes of the application.
+ * The class has two main functions:
+ *
+ * createWindow: This function creates a new window with the specified title, fxml file name, width, and height.
+ * changeScene: This function changes the current scene of the application to the specified fxml file.
+ */
+
 public class SceneController {
     private static Parent root;
     private static Scene scene;
     private static Stage stage;
 
+    /**
+     * This function creates a new window with the specified title, fxml file name, width, and height.
+     * @param title is the title of the window to be created.
+     * @param fxmlFile is the name of the fxml file to be loaded for the window.
+     * @param width is the width of the window.
+     * @param height is the height of the window.
+     */
     public static void createWindow(String title, String fxmlFile, int width, int height) {
         try {
             Stage stage = new Stage();
@@ -34,6 +49,13 @@ public class SceneController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This function changes the current scene of the application to the specified fxml file.
+     * @param ev is the source event that triggers the scene change.
+     * @param url is the name of the fxml file to be loaded for the new scene.
+     * @throws IOException if the specified fxml file cannot be loaded.
+     */
     public static void changeScene(Event ev, String url) throws IOException {
         root = FXMLLoader.load(Main.class.getResource(url));
         stage = (Stage) ((Node) ev.getSource()).getScene().getWindow();

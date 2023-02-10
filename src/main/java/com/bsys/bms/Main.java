@@ -32,14 +32,14 @@ public class Main extends Application {
         managerThread.start();
 
         // Start a new thread for each clerk window
-        /*for(int i = 1; i<= clerk_count; i++) {
+        for(int i = 1; i<= clerk_count; i++) {
             int index = i;
             Thread clerkThread = new Thread(() -> {
                 Platform.runLater(() -> {
-                    SceneController.createWindow("Clerk " + index + " Window", "clerk-view.fxml", w, h); // display the manager interface
+                    SceneController.createWindow("Clerk " + index + " Window", "manager-view.fxml", w, h); // display the manager interface
                 });
             });
             clerkThread.start();
-        }*/
+        }
     }
 }
