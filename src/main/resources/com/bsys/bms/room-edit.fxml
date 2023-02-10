@@ -45,18 +45,18 @@
          <content>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="326.0" prefWidth="905.0">
                   <children>
-                     <DatePicker layoutX="23.0" layoutY="32.0" />
+                     <DatePicker fx:id="fromdate" layoutX="23.0" layoutY="32.0" />
                      <Label layoutX="23.0" layoutY="14.0" text="Enter the duration" />
                      <Label layoutX="217.0" layoutY="36.0" text="TO" />
-                     <DatePicker layoutX="248.0" layoutY="33.0" />
-                     <TextField layoutX="458.0" layoutY="32.0" prefHeight="26.0" prefWidth="293.0" />
+                     <DatePicker fx:id="todate" layoutX="248.0" layoutY="33.0" />
+                     <TextField fx:id="reasonTF" layoutX="458.0" layoutY="32.0" prefHeight="26.0" prefWidth="293.0" />
                      <Label layoutX="458.0" layoutY="14.0" text="Reason" />
-                     <Button layoutX="770.0" layoutY="32.0" mnemonicParsing="false" text="Block" />
-                     <TableView layoutX="23.0" layoutY="99.0" prefHeight="334.0" prefWidth="796.0">
+                     <Button fx:id="block_btn" layoutX="770.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleRoomBlock" text="Block" />
+                     <TableView fx:id="historyView" layoutX="23.0" layoutY="99.0" prefHeight="334.0" prefWidth="796.0">
                        <columns>
-                         <TableColumn prefWidth="214.39994430541992" text="From Date" />
-                         <TableColumn prefWidth="216.800048828125" text="To Date" />
-                           <TableColumn prefWidth="367.199951171875" text="Reason" />
+                         <TableColumn fx:id="dateFrom" prefWidth="214.39994430541992" text="From Date" />
+                         <TableColumn fx:id="dateTo" prefWidth="216.800048828125" text="To Date" />
+                           <TableColumn fx:id="reason" prefWidth="367.199951171875" text="Reason" />
                        </columns>
                      </TableView>
                      <Label layoutX="23.0" layoutY="71.0" text="Block History" />

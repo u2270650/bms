@@ -13,7 +13,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
 
 public class RoomController {
     private static int selectedRoomId;
@@ -35,6 +38,14 @@ public class RoomController {
     @FXML private  TextField roomLocationTextBox;
     @FXML private  TextArea roomDetailTextArea;
 
+    @FXML private TableView<BlockedRoom> historyView;
+    @FXML private TableColumn<BlockedRoom, Date> dateFrom;
+    @FXML private TableColumn<BlockedRoom, Date> dateTo;
+    @FXML private TableColumn<BlockedRoom, String> reason;
+    @FXML private  DatePicker fromdate;
+    @FXML private  DatePicker todate;
+    @FXML private  TextField reasonTF;
+
     private DatabaseController databaseController = new DatabaseController();
     @FXML
     private void initialize() {
@@ -42,6 +53,11 @@ public class RoomController {
             // edit mode
             roomTypeComboBox.setItems(loadTypes());
             displayRoomDetails(RoomController.selectedRoomId);
+
+            dateFrom.setCellValueFactory(new PropertyValueFactory<>("datefrom"));
+            dateTo.setCellValueFactory(new PropertyValueFactory<>("dateto"));
+            reason.setCellValueFactory(new PropertyValueFactory<>("reason"));
+            historyView.setItems(listBlockedHistory(RoomController.selectedRoomId));
         }
         else if(Objects.equals(RoomController.selectedMode, "A")) {
             // add mode
@@ -143,6 +159,71 @@ public class RoomController {
         }
 
         SceneController.changeScene(actionEvent, "room-edit.fxml");
+    }
+
+    public void handleRoomBlock(ActionEvent ev) throws IOException {
+        if(RoomController.selectedRoomId > 0 && Objects.equals(RoomController.selectedMode, "E")) {
+            LocalDate dateFrom = fromdate.getValue();
+            LocalDate dateTo = todate.getValue();
+            String reasonText = reasonTF.getText();
+
+            if(dateFrom != null && dateTo != null && !Objects.equals(reasonText, "")) {
+                fromdate.setValue(null);
+                todate.setValue(null);
+                reasonTF.setText("");
+
+                int result = databaseController.executeInsertQuery("INSERT INTO blackout(room_id, date_from, date_to, reason) VALUES ("+RoomController.selectedRoomId+", '"+dateFrom+"', '"+dateTo+"', '"+reasonText+"' )");
+                if (result > 0) {
+                    // Alert user of successful insert
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText("Room has been Blocked");
+                    alert.showAndWait();
+                    historyView.setItems(listBlockedHistory(RoomController.selectedRoomId));
+                } else {
+                    // Alert user of failed insert
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Failure");
+                    alert.setHeaderText("We could not block the room. Please try again.");
+                    RoomController.selectedRoomId = 0;
+                    RoomController.selectedMode = "";
+                    alert.showAndWait();
+                }
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Failed");
+                alert.setHeaderText("Enter the duration and reason to block.");
+            }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Room Id");
+            alert.setHeaderText("Room Id Parameter Missing");
+            RoomController.selectedRoomId = 0;
+            RoomController.selectedMode = "";
+            alert.showAndWait();
+            SceneController.changeScene(ev, "room-view.fxml");
+        }
+    }
+
+
+    private ObservableList<BlockedRoom> listBlockedHistory(int roomId) {
+        ObservableList<BlockedRoom> history = FXCollections.observableArrayList();
+        ResultSet resultSet = databaseController.executeSelectQuery("SELECT * from blackout WHERE room_id = "+roomId);
+
+        try {
+            while (resultSet.next()) {
+                int room_id = resultSet.getInt("room_id");
+                Date date_from = resultSet.getDate("date_from");
+                Date date_to = resultSet.getDate("date_to");
+                String reason_str = resultSet.getString("reason");
+                history.add(new BlockedRoom(room_id, date_from, date_to, reason_str));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return history;
     }
 
     private ObservableList<Rooms> loadRooms(String filter_param) {
