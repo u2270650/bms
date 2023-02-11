@@ -43,7 +43,7 @@
         </AnchorPane>
         <ScrollPane layoutX="25.0" layoutY="178.0" prefHeight="402.0">
             <content>
-                <TableView fx:id="tableView" prefHeight="400.0" prefWidth="961.0">
+                <TableView fx:id="bookingTable" prefHeight="400.0" prefWidth="961.0">
                     <columns>
                         <TableColumn fx:id="sr_num" prefWidth="40" text="#" />
                         <TableColumn fx:id="duration" text="Duration">
