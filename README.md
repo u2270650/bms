@@ -43,3 +43,7 @@ You have been asked to develop a prototype desktop system that uses a shared mem
 ## Reference Links:
 - [cheatsheet](https://dzone.com/refcardz/getting-started-javafx)
 - [JFX documentation](https://openjfx.io/)
+
+```sh
+git log --pretty=format:"%C(auto)%h%x09%an%x09%ad%x09%Cblue%s" // git log
+```
