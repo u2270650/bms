@@ -1,18 +1,15 @@
 package com.bsys.bms;
 
 import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * SceneController class is responsible for managing the scenes of the application.
@@ -29,10 +26,11 @@ public class SceneController {
 
     /**
      * This function creates a new window with the specified title, fxml file name, width, and height.
-     * @param title is the title of the window to be created.
-     * @param fxmlFile is the name of the fxml file to be loaded for the window.
-     * @param width is the width of the window.
-     * @param height is the height of the window.
+     *
+     * @param title              is the title of the window to be created.
+     * @param fxmlFile           is the name of the fxml file to be loaded for the window.
+     * @param width              is the width of the window.
+     * @param height             is the height of the window.
      */
     public static void createWindow(String title, String fxmlFile, int width, int height) {
         try {

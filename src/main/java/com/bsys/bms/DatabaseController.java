@@ -69,7 +69,7 @@ public class DatabaseController {
      * @param query the UPDATE query to be executed
      * @return the number of rows affected by the query
      */
-    public int executeUpdateQuery(String query) {
+    public synchronized int executeUpdateQuery(String query) {
         int rowsAffected = 0;
         try {
             Statement statement = getConnection().createStatement();
@@ -86,7 +86,7 @@ public class DatabaseController {
      * @param query the insert query to be executed
      * @return the generated ID, or -1 if an error occurs
      */
-    public int executeInsertQuery(String query) {
+    public synchronized int executeInsertQuery(String query) {
         int id = -1;
         try {
             // Create a statement from the connection
