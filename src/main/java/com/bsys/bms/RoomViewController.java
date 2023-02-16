@@ -1,5 +1,8 @@
 package com.bsys.bms;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import javafx.collections.FXCollections;
@@ -13,7 +16,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javafx.scene.control.DatePicker;
 
@@ -31,7 +36,7 @@ public class RoomViewController {
     @FXML private TableColumn<Rooms, Integer> active_bookings;
     @FXML private TableColumn<Rooms, String> action;
     private static DatabaseController databaseController = new DatabaseController();
-
+    ObservableList<Rooms> roomsData = FXCollections.observableArrayList();
     @FXML
     private void initialize() {
         // in display mode
@@ -45,8 +50,14 @@ public class RoomViewController {
         room_type.setCellValueFactory(new PropertyValueFactory<>("room_type"));
         active_bookings.setCellValueFactory(new PropertyValueFactory<>("active_bookings"));
         action.setCellValueFactory(new PropertyValueFactory<>("action"));
+        roomsData.addListener(new ListChangeListener<Rooms>() {
+            @Override
+            public void onChanged(Change<? extends Rooms> change) {
+                // set the items for the tableView table
+                // System.err.println("data change logged...");
+            }
+        });
 
-        // set the items for the tableView table
         tableView.setItems(loadRooms("1"));
     }
 
@@ -86,40 +97,6 @@ public class RoomViewController {
         SceneController.changeScene(actionEvent, "room-edit.fxml");
     }
 
-    private ObservableList<Rooms> loadRooms(String filter_param) {
-        ObservableList<Rooms> roomsData = FXCollections.observableArrayList();
-        // Execute a SELECT query to retrieve the data for the rooms
-        ResultSet resultSet = databaseController.executeSelectQuery("SELECT room.*, COUNT(booking.room_id) as active_booking FROM room LEFT JOIN booking ON room.id = booking.room_id WHERE "+filter_param+" GROUP BY room.id");
-        try {
-            roomsData.clear();
-            int a = 1;
-            // Iterate through the result set and retrieve the room data
-            while (resultSet.next()) {
-                int selectedId = resultSet.getInt("id");
-                String roomName = resultSet.getString("name");
-                int roomCapacity = resultSet.getInt("capacity");
-                String roomDetail = resultSet.getString("detail");
-                String roomType = resultSet.getString("type");
-                int activeBookings = resultSet.getInt("active_booking");
-                Button action = new Button("Edit");
-
-                // Add a new room object to the `data` list with the retrieved data
-                roomsData.add(new Rooms(a, roomName, roomCapacity, roomDetail, roomType, activeBookings, action));
-                a++;
-
-                // Add an action listener to the "Edit" button
-                editButton(action, selectedId);
-            }
-            sr_counter = a;
-        } catch (SQLException e) {
-            // Print the stack trace of the exception if there is an error in the database query
-            e.printStackTrace();
-        }
-
-        // Return the `data` list of room objects
-        return roomsData;
-    }
-
     private void editButton(Button action, int selectedId) {
         action.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -138,6 +115,40 @@ public class RoomViewController {
                 }
             }
         });
+    }
+
+    private ObservableList<Rooms> loadRooms(String filter_param) {
+        // Execute a SELECT query to retrieve the data for the rooms
+        ResultSet resultSet = databaseController.executeSelectQuery("SELECT room.*, COUNT(booking.room_id) as active_booking FROM room LEFT JOIN booking ON room.id = booking.room_id WHERE "+filter_param+" GROUP BY room.id");
+        try {
+            roomsData.clear();
+            int a = 1;
+            // Iterate through the result set and retrieve the room data
+            while (resultSet.next()) {
+                int selectedId = resultSet.getInt("id");
+                String roomName = resultSet.getString("name");
+                int roomCapacity = resultSet.getInt("capacity");
+                String roomDetail = resultSet.getString("detail");
+                String roomType = resultSet.getString("type");
+                int activeBookings = resultSet.getInt("active_booking");
+                String location = resultSet.getString("location");
+                Button action = new Button("Edit");
+
+                // Add a new room object to the `data` list with the retrieved data
+                roomsData.add(new Rooms(a, roomName, roomCapacity, roomDetail, roomType, location, activeBookings, action));
+                a++;
+
+                // Add an action listener to the "Edit" button
+                editButton(action, selectedId);
+            }
+            sr_counter = a;
+        } catch (SQLException e) {
+            // Print the stack trace of the exception if there is an error in the database query
+            e.printStackTrace();
+        }
+
+        // Return the `data` list of room objects
+        return roomsData;
     }
 
     public static ObservableList<String> loadTypes() {

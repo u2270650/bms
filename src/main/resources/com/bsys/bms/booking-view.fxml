@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.BookingController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.BookingViewController">
     <children>
 <!--        Header:start-->
         <fx:include source="header.fxml" />
@@ -15,13 +15,13 @@
                     <content>
                         <AnchorPane minHeight="7.0" minWidth="0.0" prefHeight="174.0" prefWidth="401.0">
                             <children>
-                                <DatePicker fx:id="txtdatefrom" layoutX="174.0" layoutY="22.0" prefHeight="26.0" prefWidth="119.0" />
+                                <DatePicker fx:id="dtfrom" layoutX="174.0" layoutY="22.0" prefHeight="26.0" prefWidth="119.0" />
                                 <ComboBox fx:id="cmbtype" layoutX="462.0" layoutY="22.0" prefHeight="26.0" prefWidth="92.0" />
                                 <Button fx:id="btn_search" layoutX="641.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleFilters" text="Search" />
                                 <Button fx:id="btn_reset" layoutX="704.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleReset" text="Reset" />
                                 <Label layoutX="176.0" layoutY="5.0" text="Date of Booking" />
                                 <Label layoutX="462.0" layoutY="5.0" text="Room Type" />
-                                <DatePicker fx:id="txtdateto" layoutX="329.0" layoutY="22.0" prefHeight="26.0" prefWidth="119.0" />
+                                <DatePicker fx:id="dtto" layoutX="329.0" layoutY="22.0" prefHeight="26.0" prefWidth="119.0" />
                                 <Label layoutX="303.0" layoutY="26.0" text="TO">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
@@ -52,11 +52,10 @@
                                 <TableColumn fx:id="date_to" prefWidth="150" text="To" />
                             </columns>
                         </TableColumn>
-                        <TableColumn fx:id="room_name" text="Room Name" />
-                        <TableColumn fx:id="room_type" text="Room Type" />
-                        <TableColumn fx:id="room_capacity" text="Capacity" />
-                        <TableColumn fx:id="booking_details" prefWidth="300" text="Booking Details" />
-                        <TableColumn fx:id="action" text="Action" />
+                        <TableColumn fx:id="room_name" prefWidth="88.0" text="Room Name" />
+                        <TableColumn fx:id="room_type" prefWidth="85.60000610351562" text="Room Type" />
+                        <TableColumn fx:id="room_capacity" prefWidth="86.199951171875" text="Capacity" />
+                        <TableColumn fx:id="booking_details" prefWidth="361.800048828125" text="Booking Details" />
                     </columns>
                 </TableView>
             </content>
