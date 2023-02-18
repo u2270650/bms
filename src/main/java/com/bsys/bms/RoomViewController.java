@@ -94,6 +94,7 @@ public class RoomViewController {
     // This method handles the "Add Room" button click and switches to the add room scene
     public void handleAddRoom(ActionEvent actionEvent) throws IOException {
         // Change the scene to the add room scene
+        selectedRoomId = 0;
         SceneController.changeScene(actionEvent, "room-edit.fxml");
     }
 

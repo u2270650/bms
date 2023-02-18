@@ -62,34 +62,47 @@ public class RoomEditController {
     }
 
     public synchronized void handleSave(ActionEvent actionEvent) throws IOException {
-        // Capture the values of the fields
-        String roomName = roomNameTextField.getText();
-        String roomType = roomTypeComboBox.getValue();
-        int roomCapacity = Integer.parseInt(roomCapacityTextField.getText());
-        String roomLocation = roomLocationTextBox.getText();
-        String roomDetails = roomDetailTextArea.getText();
+        int err = 0;
 
-        if(selectedRoomId > 0) {
-            // update existing entry
-            int result = databaseController.executeUpdateQuery("UPDATE room set name = '" + roomName + "', type = '" + roomType + "', capacity = '" + roomCapacity + "', location = '" + roomLocation + "', detail = '" + roomDetails + "' WHERE id = "+ selectedRoomId);
-            alertType = (result > 0) ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
-            title = (result > 0) ? "Success" : "Failure";
-            msg = (result > 0) ? "The room was updated successfully." : "The room was not updated. Please try again.";
-        }
-        else {
-            // insert new entry
-            int result = databaseController.executeInsertQuery("INSERT INTO room(name, type, capacity, location, detail) VALUES ('" + roomName + "','" + roomType + "','" + roomCapacity + "','" + roomLocation + "','" + roomDetails + "')");
-            alertType = (result > 0) ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
-            title = (result > 0) ? "New Room Created" : "Creation Failed";
-            msg = (result > 0) ? "The room was created successfully." : "The room was not created. Please try again.";
-        }
+        if(!FormValidator.validateTextField(roomNameTextField)) err ++;
+        else if(!FormValidator.validateComboBox(roomTypeComboBox)) err ++;
+        else if(!FormValidator.validateInteger(roomCapacityTextField)) err ++;
+        else if(!FormValidator.validateTextField(roomLocationTextBox)) err ++;
+        else if(!FormValidator.validateTextArea(roomDetailTextArea)) err ++;
 
-        new AlertConrtoller(alertType, title, msg);
-        SceneController.changeScene(actionEvent, "room-view.fxml");
+        if(err == 0){
+            // Capture the values of the fields
+            String roomName = roomNameTextField.getText();
+            String roomType = roomTypeComboBox.getValue();
+            int roomCapacity = Integer.parseInt(roomCapacityTextField.getText());
+            String roomLocation = roomLocationTextBox.getText();
+            String roomDetails = roomDetailTextArea.getText();
+
+
+            if(selectedRoomId > 0) {
+                // update existing entry
+                int result = databaseController.executeUpdateQuery("UPDATE room set name = '" + roomName + "', type = '" + roomType + "', capacity = '" + roomCapacity + "', location = '" + roomLocation + "', detail = '" + roomDetails + "' WHERE id = "+ selectedRoomId);
+                alertType = (result > 0) ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
+                title = (result > 0) ? "Success" : "Failure";
+                msg = (result > 0) ? "The room was updated successfully." : "The room was not updated. Please try again.";
+            }
+            else {
+                // insert new entry
+                int result = databaseController.executeInsertQuery("INSERT INTO room(name, type, capacity, location, detail) VALUES ('" + roomName + "','" + roomType + "','" + roomCapacity + "','" + roomLocation + "','" + roomDetails + "')");
+                alertType = (result > 0) ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
+                title = (result > 0) ? "New Room Created" : "Creation Failed";
+                msg = (result > 0) ? "The room was created successfully." : "The room was not created. Please try again.";
+            }
+
+            new AlertController(alertType, title, msg);
+            SceneController.changeScene(actionEvent, "room-view.fxml");
+        }
     }
 
     // Handle the room blocking function
     public synchronized void handleRoomBlock(ActionEvent ev) throws IOException {
+        int err = 0;
+
         // Check if a room has been selected and in edit mode
         if(selectedRoomId > 0) {
             // Get the date range and reason for blocking the room
@@ -97,37 +110,43 @@ public class RoomEditController {
             LocalDate dateTo = todate.getValue();
             String reasonText = reasonTF.getText();
 
-            // Check if date range and reason have been entered
-            if(dateFrom != null && dateTo != null && !Objects.equals(reasonText, "")) {
-                // Reset the date range and reason fields
-                fromdate.setValue(null);
-                todate.setValue(null);
-                reasonTF.setText("");
+            if(!FormValidator.validateDatePicker(fromdate, null)) err ++;
+            if(!FormValidator.validateDatePicker(todate, fromdate)) err ++;
+            else if(!FormValidator.validateTextField(reasonTF)) err ++;
 
-                // Insert the blackout data into the database
-                int result = databaseController.executeInsertQuery("INSERT INTO blackout(room_id, date_from, date_to, reason) VALUES ("+ selectedRoomId+", '"+dateFrom+"', '"+dateTo+"', '"+reasonText+"' )");
+            if(err == 0) {
+                // Check if date range and reason have been entered
+                if(dateFrom != null && dateTo != null && !Objects.equals(reasonText, "")) {
+                    // Reset the date range and reason fields
+                    fromdate.setValue(null);
+                    todate.setValue(null);
+                    reasonTF.setText("");
 
-                // Check if the insert was successful
-                if (result > 0) {
-                    // Show success alert
-                    alertType =  Alert.AlertType.INFORMATION;
-                    title = "Success";
-                    msg = "Room has been Blocked";
-                    // Update the blocked history view
-                    blockedData = listBlockedHistory(selectedRoomId);
-                    historyView.setItems(blockedData);
-                } else {
-                    // Show failure alert
-                    alertType = Alert.AlertType.ERROR;
-                    title = "Failure";
-                    msg = "We could not block the room. Please try again.";
+                    // Insert the blackout data into the database
+                    int result = databaseController.executeInsertQuery("INSERT INTO blackout(room_id, date_from, date_to, reason) VALUES ("+ selectedRoomId+", '"+dateFrom+"', '"+dateTo+"', '"+reasonText+"' )");
+
+                    // Check if the insert was successful
+                    if (result > 0) {
+                        // Show success alert
+                        alertType =  Alert.AlertType.INFORMATION;
+                        title = "Success";
+                        msg = "Room has been Blocked";
+                        // Update the blocked history view
+                        blockedData = listBlockedHistory(selectedRoomId);
+                        historyView.setItems(blockedData);
+                    } else {
+                        // Show failure alert
+                        alertType = Alert.AlertType.ERROR;
+                        title = "Failure";
+                        msg = "We could not block the room. Please try again.";
+                    }
                 }
-            }
-            else {
-                // Show error alert if date range and reason are not entered
-                alertType = Alert.AlertType.ERROR;
-                title = "Failed";
-                msg = "Enter the duration and reason to block.";
+                else {
+                    // Show error alert if date range and reason are not entered
+                    alertType = Alert.AlertType.ERROR;
+                    title = "Failed";
+                    msg = "Enter the duration and reason to block.";
+                }
             }
         }
         else {
@@ -139,7 +158,7 @@ public class RoomEditController {
             SceneController.changeScene(ev, "room-view.fxml");
         }
 
-        new AlertConrtoller(alertType, title, msg);
+        new AlertController(alertType, title, msg);
     }
 
 

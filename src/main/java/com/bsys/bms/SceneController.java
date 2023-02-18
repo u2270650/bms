@@ -26,6 +26,8 @@ public class SceneController {
     private static Parent root;
     private static Scene scene;
     private static Stage stage;
+    @FXML public static Label login_name;
+
     /**
      * This function creates a new window with the specified title, fxml file name, width, and height.
      *
@@ -60,5 +62,9 @@ public class SceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void setLoginName(String name) {
+        login_name.setText(name);
     }
 }

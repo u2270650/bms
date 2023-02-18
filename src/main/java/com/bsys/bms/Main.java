@@ -13,7 +13,7 @@ public class Main extends Application {
     // Override the `start` method from the Application class to setup and start the program
     @Override
     public void start(Stage primaryStage) {
-        int clerk_count = 1;
+        int clerk_count = 2;
 
         // Start a new thread for the manager window
         // This is used to create a new window for the manager interface

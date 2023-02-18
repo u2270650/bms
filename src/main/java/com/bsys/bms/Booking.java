@@ -6,7 +6,9 @@ import java.util.Date;
 
 /**
 
- Class representing a booking.
+ Booking class represents a booking object with details such as id, booking details,
+
+ duration from and to, room name, room type, room capacity and action button.
  */
 public class Booking {
     private int id;
@@ -18,6 +20,18 @@ public class Booking {
     private int roomCapacity;
     private Button action;
 
+    /**
+
+     Constructor that creates a new booking object with the specified details.
+     @param id the unique identifier of the booking.
+     @param bookingDetail the details of the booking.
+     @param durationFrom the starting time of the booking.
+     @param durationTo the ending time of the booking.
+     @param roomName the name of the room that is booked.
+     @param roomType the type of the room that is booked.
+     @param roomCapacity the capacity of the room that is booked.
+     @param action the action button associated with the booking.
+     */
     public Booking(int id, String bookingDetail, String durationFrom, String durationTo, String roomName, String roomType, int roomCapacity, Button action) {
         this.id = id;
         this.bookingDetail = bookingDetail;
@@ -28,8 +42,7 @@ public class Booking {
         this.roomCapacity = roomCapacity;
         this.action = action;
     }
-
-    // Getter methods
+    // Getter methods to get the values of the instance variables
     public int getId() {
         return id;
     }
@@ -62,7 +75,7 @@ public class Booking {
         return action;
     }
 
-    // Setter methods
+    // Setter methods to set the values of the instance variables
     public void setId(int id) {
         this.id = id;
     }
