@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,9 +18,9 @@ import javafx.scene.control.DatePicker;
 public class RoomEditController {
     @FXML private TextField roomNameTextField;
     @FXML private ComboBox<String> roomTypeComboBox;
-    @FXML private  TextField roomCapacityTextField;
-    @FXML private  TextField roomLocationTextBox;
-    @FXML private  TextArea roomDetailTextArea;
+    @FXML private TextField roomCapacityTextField;
+    @FXML private TextField roomLocationTextBox;
+    @FXML private TextArea roomDetailTextArea;
     @FXML private  DatePicker fromdate;
     @FXML private  DatePicker todate;
     @FXML private  TextField reasonTF;
@@ -30,9 +29,8 @@ public class RoomEditController {
     @FXML private TableColumn<BlockedRoom, Date> dateTo;
     @FXML private TableColumn<BlockedRoom, String> reason;
     // instantiate the DatabaseController object
-    private DatabaseController databaseController = new DatabaseController();
+    final DatabaseController databaseController = new DatabaseController();
     private ObservableList<BlockedRoom> blockedData = FXCollections.observableArrayList();
-    private ObservableList<Rooms> roomsData;
     private int selectedRoomId = RoomViewController.selectedRoomId;
     Object alertType = null;
     String title = null;
@@ -66,7 +64,7 @@ public class RoomEditController {
     public synchronized void handleSave(ActionEvent actionEvent) throws IOException {
         // Capture the values of the fields
         String roomName = roomNameTextField.getText();
-        String roomType = (String) roomTypeComboBox.getValue();
+        String roomType = roomTypeComboBox.getValue();
         int roomCapacity = Integer.parseInt(roomCapacityTextField.getText());
         String roomLocation = roomLocationTextBox.getText();
         String roomDetails = roomDetailTextArea.getText();
@@ -149,7 +147,6 @@ public class RoomEditController {
      * listBlockedHistory() is a method that returns a list of blocked room history.
      * @param roomId is the id of the room whose blocked history is to be retrieved.
      * @return history is an ObservableList containing all the blocked history of the room.
-     *
      * The method queries the 'blackout' table in the database to retrieve the blocked room history.
      * The result set is then processed to extract the necessary information and store it in the BlockedRoom object.
      * The BlockedRoom objects are then added to the history ObservableList.
