@@ -7,12 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * SceneController class is responsible for managing the scenes of the application.
@@ -26,22 +26,22 @@ public class SceneController {
     private static Parent root;
     private static Scene scene;
     private static Stage stage;
+    @FXML public static Label login_name;
 
     /**
      * This function creates a new window with the specified title, fxml file name, width, and height.
-     * @param title is the title of the window to be created.
-     * @param fxmlFile is the name of the fxml file to be loaded for the window.
-     * @param width is the width of the window.
-     * @param height is the height of the window.
+     *
+     * @param title              is the title of the window to be created.
+     * @param fxmlFile           is the name of the fxml file to be loaded for the window.
      */
-    public static void createWindow(String title, String fxmlFile, int width, int height) {
+    public static void createWindow(String title, String fxmlFile) {
         try {
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Main.class.getResource("images/logo.png").openStream()));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlFile));
             Pane layout = loader.load();
 
-            Scene scene = new Scene(layout, width, height);
+            Scene scene = new Scene(layout);//, width, height);
             stage.setScene(scene);
             stage.setTitle(title);
             stage.show();
@@ -62,5 +62,9 @@ public class SceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void setLoginName(String name) {
+        login_name.setText(name);
     }
 }

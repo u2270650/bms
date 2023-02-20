@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.RoomController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.RoomEditController">
+    <stylesheets>
+        <URL value="@style/style.css" />
+    </stylesheets>
     <!--        Header:start-->
     <fx:include source="header.fxml" />
     <!--        Header: end-->
 
     <AnchorPane layoutY="47.0" prefHeight="55.0" prefWidth="985.0">
-        <children>
-            <Button fx:id="btn_back" layoutX="901.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
-            <Label fx:id="pageTitle" layoutX="25.0" layoutY="13.0" text="Room Details">
-                <font>
-                    <Font name="Consolas Bold" size="24.0" />
-                </font>
-            </Label>
-        </children>
+        <Button layoutX="901.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleBack" styleClass="button-back" text="Back" />
+        <Label layoutX="25.0" layoutY="13.0" styleClass="text-label" text="Room Details" />
     </AnchorPane>
 
     <fx:include source="footer.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="610.0" />
@@ -27,17 +24,17 @@
          <content>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="916.0">
                   <children>
-                     <Label layoutX="24.0" layoutY="32.0" text="Enter Room Name" />
-                     <Label layoutX="680.0" layoutY="32.0" text="Enter Room Location" />
-                     <Label layoutX="237.0" layoutY="31.0" text="Select Room type" />
-                     <Label layoutX="459.0" layoutY="32.0" text="Enter Room Capacity" />
-                     <Label layoutX="25.0" layoutY="103.0" text="Desccription/Notes" />
-                     <TextField fx:id="roomNameTextField" layoutX="24.0" layoutY="50.0" />
-                     <ComboBox fx:id="roomTypeComboBox" layoutX="237.0" layoutY="49.0" prefWidth="150.0" />
-                     <TextField fx:id="roomCapacityTextField" layoutX="459.0" layoutY="50.0" />
-                     <TextField fx:id="roomLocationTextBox" layoutX="680.0" layoutY="50.0" />
-                     <TextArea fx:id="roomDetailTextArea" layoutX="23.0" layoutY="122.0" prefHeight="112.0" prefWidth="812.0" />
-                     <Button fx:id="btn_save" layoutX="25.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                     <Label layoutX="24.0" layoutY="32.0" styleClass="text-label" text="Enter Room Name" />
+                     <Label layoutX="680.0" layoutY="32.0" styleClass="text-label" text="Enter Room Location" />
+                     <Label layoutX="237.0" layoutY="31.0" styleClass="text-label" text="Select Room type" />
+                     <Label layoutX="459.0" layoutY="32.0" styleClass="text-label" text="Enter Room Capacity" />
+                     <Label layoutX="25.0" layoutY="103.0" styleClass="text-label" text="Desccription/Notes" />
+                     <TextField fx:id="roomNameTextField" layoutX="24.0" layoutY="50.0" styleClass="text-field" />
+                     <ComboBox fx:id="roomTypeComboBox" layoutX="237.0" layoutY="49.0" prefWidth="150.0" styleClass="combo-box" />
+                     <TextField fx:id="roomCapacityTextField" layoutX="459.0" layoutY="50.0" styleClass="text-field" />
+                     <TextField fx:id="roomLocationTextBox" layoutX="680.0" layoutY="50.0" styleClass="text-field" />
+                     <TextArea fx:id="roomDetailTextArea" layoutX="23.0" layoutY="122.0" prefHeight="112.0" prefWidth="812.0" styleClass="text-field" />
+                     <Button fx:id="btn_save" layoutX="25.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleSave" styleClass="button-save" text="Save" />
                   </children></AnchorPane>
          </content>
        </Tab>
@@ -46,20 +43,20 @@
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="326.0" prefWidth="905.0">
                   <children>
                      <DatePicker fx:id="fromdate" layoutX="23.0" layoutY="32.0" />
-                     <Label layoutX="23.0" layoutY="14.0" text="Enter the duration" />
-                     <Label layoutX="217.0" layoutY="36.0" text="TO" />
+                     <Label layoutX="23.0" layoutY="14.0" styleClass="text-label" text="Enter the duration" />
+                     <Label layoutX="217.0" layoutY="36.0" styleClass="text-label" text="TO" />
                      <DatePicker fx:id="todate" layoutX="248.0" layoutY="33.0" />
-                     <TextField fx:id="reasonTF" layoutX="458.0" layoutY="32.0" prefHeight="26.0" prefWidth="293.0" />
-                     <Label layoutX="458.0" layoutY="14.0" text="Reason" />
-                     <Button fx:id="block_btn" layoutX="770.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleRoomBlock" text="Block" />
-                     <TableView fx:id="historyView" layoutX="23.0" layoutY="99.0" prefHeight="334.0" prefWidth="796.0">
+                     <TextField fx:id="reasonTF" layoutX="458.0" layoutY="32.0" prefHeight="26.0" prefWidth="293.0" styleClass="text-field" />
+                     <Label layoutX="458.0" layoutY="14.0" styleClass="text-label" text="Reason" />
+                     <Button fx:id="block_btn" layoutX="770.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleRoomBlock" styleClass="button-reset" text="Block" />
+                     <TableView fx:id="historyView" layoutX="23.0" layoutY="110.0" prefHeight="334.0" prefWidth="796.0" styleClass="table-view">
                        <columns>
-                         <TableColumn fx:id="dateFrom" prefWidth="214.39994430541992" text="From Date" />
-                         <TableColumn fx:id="dateTo" prefWidth="216.800048828125" text="To Date" />
-                           <TableColumn fx:id="reason" prefWidth="367.199951171875" text="Reason" />
+                            <TableColumn fx:id="dateFrom" prefWidth="214.39994430541992" styleClass="table-row-cell" text="From Date" />
+                            <TableColumn fx:id="dateTo" prefWidth="216.800048828125" styleClass="table-row-cell" text="To Date" />
+                            <TableColumn fx:id="reason" prefWidth="367.199951171875" styleClass="table-row-cell" text="Reason" />
                        </columns>
                      </TableView>
-                     <Label layoutX="23.0" layoutY="71.0" text="Block History" />
+                     <Label layoutX="23.0" layoutY="71.0" styleClass="header" text="Block History" />
                   </children>
            </AnchorPane>
          </content>

@@ -8,15 +8,17 @@ public class Rooms {
     private Integer room_capacity;
     private String room_detail;
     private String room_type;
+    private String room_location;
     private Integer active_bookings;
     private Button action;
 
-    public Rooms(Integer sr_num, String room_name, Integer room_capacity, String room_detail, String room_type, Integer active_bookings, Button action) {
+    public Rooms(Integer sr_num, String room_name, Integer room_capacity, String room_detail, String room_type, String room_location, Integer active_bookings, Button action) {
         this.sr_num = sr_num;
         this.room_name = room_name;
         this.room_capacity = room_capacity;
         this.room_detail = room_detail;
         this.room_type = room_type;
+        this.room_location = room_location;
         this.active_bookings = active_bookings;
         this.action = action;
     }
@@ -59,6 +61,14 @@ public class Rooms {
 
     public void setRoom_type(String room_type) {
         this.room_type = room_type;
+    }
+
+    public String getRoom_location() {
+        return room_location;
+    }
+
+    public void setRoom_location(String room_location) {
+        this.room_location = room_location;
     }
 
     public Integer getActive_bookings() {

@@ -2,33 +2,30 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
 
-<AnchorPane prefHeight="400.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.BookingController">
-   <children>
-      <fx:include source="header.fxml" />
-      <Button fx:id="btn_back" layoutX="629.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
-      <Label fx:id="pageTitle" layoutX="28.0" layoutY="59.0" text="Guest Details">
-         <font>
-            <Font name="Consolas Bold" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="28.0" layoutY="108.0" text="Select Room" />
-      <Label layoutX="246.0" layoutY="108.0" text="Date Time From" />
-      <Label layoutX="493.0" layoutY="108.0" text="Date Time To" />
-      <DatePicker layoutX="247.0" layoutY="126.0" prefHeight="26.0" prefWidth="109.0" />
-      <ComboBox layoutX="28.0" layoutY="127.0" prefWidth="150.0" />
-      <ComboBox layoutX="363.0" layoutY="125.0" prefHeight="28.0" prefWidth="66.0" />
-      <DatePicker layoutX="493.0" layoutY="126.0" prefHeight="26.0" prefWidth="109.0" />
-      <ComboBox layoutX="609.0" layoutY="125.0" prefHeight="28.0" prefWidth="66.0" />
-      <Button layoutX="28.0" layoutY="298.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="106.0" text="Book Now" />
-      <Label layoutX="439.0" layoutY="168.0" />
-      <Label layoutX="28.0" layoutY="177.0" text="Name of Organisation / Company / Club" />
-      <TextField layoutX="28.0" layoutY="200.0" prefHeight="26.0" prefWidth="263.0" />
-      <Label layoutX="349.0" layoutY="177.0" text="Name of Contact Person" />
-      <Label layoutX="548.0" layoutY="177.0" text="Contact Details" />
-      <RadioButton layoutX="28.0" layoutY="262.0" mnemonicParsing="false" text="Yes" />
-      <RadioButton layoutX="71.0" layoutY="262.0" mnemonicParsing="false" text="No" />
-      <Label layoutX="30.0" layoutY="237.0" text="Paid ?" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.NewBookingController">
+   <stylesheets>
+      <URL value="@style/style.css" />
+   </stylesheets>
+   <fx:include prefWidth="600.0" source="header.fxml"/>
+   <Button layoutX="629.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleBack" text="Back" styleClass="button-back"/>
+   <Label layoutX="28.0" layoutY="59.0" text="Guest Details" styleClass="header" />
+   <Label layoutX="28.0" layoutY="111.0" text="Date Time From" styleClass="text-label"/>
+   <Label layoutX="275.0" layoutY="111.0" text="Date Time To" styleClass="text-label"/>
+   <DatePicker fx:id="fromDate" layoutX="29.0" layoutY="129.0" prefHeight="26.0" prefWidth="109.0"/>
+   <ComboBox fx:id="fromTime" layoutX="145.0" layoutY="128.0" prefHeight="28.0" prefWidth="66.0" styleClass="combo-box"/>
+   <DatePicker fx:id="toDate" layoutX="275.0" layoutY="129.0" prefHeight="26.0" prefWidth="109.0"/>
+   <ComboBox fx:id="toTime" layoutX="391.0" layoutY="128.0" prefHeight="28.0" prefWidth="66.0" styleClass="combo-box"/>
+   <Button layoutX="28.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleBoooking" prefHeight="28.0"
+           prefWidth="106.0" text="Book Now" styleClass="button-save"/>
+   <Label layoutX="439.0" layoutY="168.0" styleClass="text-label"/>
+   <Label layoutX="28.0" layoutY="177.0" text="Name of Organisation / Company / Club" styleClass="text-label"/>
+   <TextField fx:id="orgName" layoutX="28.0" layoutY="200.0" prefHeight="26.0" prefWidth="263.0" styleClass="text-field"/>
+   <Label layoutX="349.0" layoutY="177.0" text="Name of Contact Person" styleClass="text-label"/>
+   <Label layoutX="30.0" layoutY="238.0" text="Contact Details" styleClass="text-label"/>
+   <TextField fx:id="contactPerson" layoutX="349.0" layoutY="200.0" prefHeight="26.0" prefWidth="263.0" styleClass="text-field"/>
+   <TextField fx:id="contactDetail" layoutX="29.0" layoutY="258.0" prefHeight="26.0" prefWidth="263.0" styleClass="text-field"/>
+   <Label fx:id="roomId" layoutX="28.0" layoutY="87.0" styleClass="text-label"/>
 </AnchorPane>

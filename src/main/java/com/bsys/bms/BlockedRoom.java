@@ -1,15 +1,13 @@
 package com.bsys.bms;
 
-import javafx.fxml.FXML;
-
 import java.time.LocalDate;
 import java.util.Date;
 
 public class BlockedRoom {
-    @FXML private Date datefrom;
-    @FXML private Date dateto;
-    @FXML private String reason;
-    @FXML private int room_id;
+    private Date datefrom;
+    private Date dateto;
+    private String reason;
+    private int room_id;
 
     // Constructor to create an instance of BlockedRoom
     public BlockedRoom(int room_id, Date datefrom, Date dateto, String reason) {

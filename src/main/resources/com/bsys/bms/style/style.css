@@ -1,0 +1,124 @@
+.text-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 4px 0px;
+    -fx-end-margin: 10px;
+}
+.header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 8px 0px;
+}
+
+.button-edit {
+    -fx-background-color: #f0ad4e;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+.button-edit:hover {
+    -fx-background-color: #eea236;
+    -fx-cursor: pointer;
+}
+.button-edit:pressed {
+    -fx-background-color: #f0ad4e;
+    -fx-background-insets: 0px;
+}
+
+/* Save button styles */
+.button-save {
+    -fx-background-color: #5cb85c;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+.button-save:hover {
+    -fx-background-color: #449d44;
+    -fx-cursor: pointer;
+}
+.button-save:pressed {
+    -fx-background-color: #5cb85c;
+    -fx-background-insets: 0px;
+}
+
+/* Reset button styles */
+.button-reset {
+    -fx-background-color: #d9534f;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+.button-reset:hover {
+    -fx-background-color: #c9302c;
+    -fx-cursor: pointer;
+}
+.button-reset:pressed {
+    -fx-background-color: #d9534f;
+    -fx-background-insets: 0px;
+}
+
+/* Back button styles */
+.button-back {
+    -fx-background-color: #5bc0de;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+.button-back:hover {
+    -fx-background-color: #46b8da;
+    -fx-cursor: pointer;
+}
+.button-back:pressed {
+    -fx-background-color: #5bc0de;
+    -fx-background-insets: 0px;
+}
+
+/* Text field styles */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #c7c7c7;
+    -fx-border-width: 1px;
+}
+.text-field:focused {
+    -fx-border-color: #4d90fe;
+    -fx-border-width: 1px;
+}
+
+/* Combo box styles */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #c7c7c7;
+    -fx-border-width: 1px;
+}
+.combo-box:focused {
+    -fx-border-color: #4d90fe;
+    -fx-border-width: 1px;
+}
+
+.error-label {
+    -fx-text-fill: #cc0000;
+    -fx-font-size: 12px;
+    -fx-padding: 5px;
+}
+
+.table-view {
+    -fx-table-cell-border-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: gray;
+}
+
+.table-row-cell {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: gray;
+    -fx-text-alignment: center;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f0f0f0;
+}
+.table-row-cell:selected {
+    -fx-background-color: #4d90fe;
+    -fx-text-fill: white;
+}

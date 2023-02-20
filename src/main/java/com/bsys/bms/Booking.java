@@ -5,210 +5,106 @@ import javafx.scene.control.Button;
 import java.util.Date;
 
 /**
- * Class representing a booking.
+
+ Booking class represents a booking object with details such as id, booking details,
+
+ duration from and to, room name, room type, room capacity and action button.
  */
 public class Booking {
     private int id;
-    private int roomId;
-    private String organization;
-    private String contactPerson;
-    private String contactDetail;
-    private Date dateFrom;
-    private String timeFrom;
-    private Date dateTo;
-    private String timeTo;
+    private String bookingDetail;
+    private String durationFrom;
+    private String durationTo;
     private String roomName;
     private String roomType;
     private int roomCapacity;
     private Button action;
 
     /**
-     * Constructs a new instance of a booking.
-     *
-     * @param id            the id of the booking
-     * @param roomId        the id of the room associated with the booking
-     * @param organization  the name of the organization making the booking
-     * @param contactPerson the name of the contact person for the booking
-     * @param contactDetail the contact details for the contact person
-     * @param dateFrom      the start date of the booking
-     * @param timeFrom      the start time of the booking AM/PM
-     * @param dateTo        the end date of the booking
-     * @param timeTo        the end time of the booking AM/PM
+
+     Constructor that creates a new booking object with the specified details.
+     @param id the unique identifier of the booking.
+     @param bookingDetail the details of the booking.
+     @param durationFrom the starting time of the booking.
+     @param durationTo the ending time of the booking.
+     @param roomName the name of the room that is booked.
+     @param roomType the type of the room that is booked.
+     @param roomCapacity the capacity of the room that is booked.
+     @param action the action button associated with the booking.
      */
-    public Booking(int id, int roomId, String organization, String contactPerson, String contactDetail, Date dateFrom, String timeFrom, Date dateTo, String timeTo, String roomName, String roomType, int roomCapacity, Button action) {
+    public Booking(int id, String bookingDetail, String durationFrom, String durationTo, String roomName, String roomType, int roomCapacity, Button action) {
         this.id = id;
-        this.roomId = roomId;
-        this.organization = organization;
-        this.contactPerson = contactPerson;
-        this.contactDetail = contactDetail;
-        this.dateFrom = dateFrom;
-        this.timeFrom = timeFrom;
-        this.dateTo = dateTo;
-        this.timeTo = timeTo;
+        this.bookingDetail = bookingDetail;
+        this.durationFrom = durationFrom;
+        this.durationTo = durationTo;
         this.roomName = roomName;
         this.roomType = roomType;
         this.roomCapacity = roomCapacity;
+        this.action = action;
     }
-
-    /**
-     * Gets the id of the booking.
-     *
-     * @return the id of the booking
-     */
+    // Getter methods to get the values of the instance variables
     public int getId() {
         return id;
     }
 
-    /**
-     * Sets the id of the booking.
-     *
-     * @param id the id of the booking
-     */
+    public String getBookingDetail() {
+        return bookingDetail;
+    }
+
+    public String getDurationFrom() {
+        return durationFrom;
+    }
+
+    public String getDurationTo() {
+        return durationTo;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public int getRoomCapacity() {
+        return roomCapacity;
+    }
+
+    public Button getAction() {
+        return action;
+    }
+
+    // Setter methods to set the values of the instance variables
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * Gets the id of the room associated with the booking.
-     *
-     * @return the id of the room associated with the booking
-     */
-    public int getRoomId() {
-        return roomId;
+    public void setBookingDetail(String bookingDetail) {
+        this.bookingDetail = bookingDetail;
     }
 
-    /**
-     * Sets the id of the room associated with the booking.
-     *
-     * @param roomId the id of the room associated with the booking
-     */
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setDurationFrom(String durationFrom) {
+        this.durationFrom = durationFrom;
     }
 
-    /**
-     * Gets the name of the organization making the booking.
-     *
-     * @return the name of the organization making the booking
-     */
-    public String getOrganization() {
-        return organization;
+    public void setDurationTo(String durationTo) {
+        this.durationTo = durationTo;
     }
 
-    /**
-     * Sets the name of the organization making the booking.
-     *
-     * @param organization the name of the organization making the booking
-     */
-    public void setOrganization(String organization) {
-        this.organization = organization;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
-    /**
-     * Gets the name of the contact person for the booking.
-     *
-     * @return the name of the contact person for the booking
-     */
-    public String getContactPerson() {
-        return contactPerson;
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
-    /**
-     * Sets the name of the contact person for the booking.
-     *
-     * @param contactPerson the name of the contact person for the booking
-     */
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setRoomCapacity(int roomCapacity) {
+        this.roomCapacity = roomCapacity;
     }
 
-    /**
-     * Gets the contact details for the contact person.
-     *
-     * @return the contact details for the contact person
-     */
-    public String getContactDetail() {
-        return contactDetail;
-    }
-
-    /**
-     * Sets the contact details for the contact person.
-     *
-     * @param contactDetail the contact details for the contact person
-     */
-    public void setContactDetail(String contactDetail) {
-        this.contactDetail = contactDetail;
-    }
-
-    /**
-     * Gets the start date of the booking.
-     *
-     * @return the start date of the booking
-     */
-    public Date getDateFrom() {
-        return dateFrom;
-    }
-
-    /**
-     * Sets the start date of the booking.
-     *
-     * @param dateFrom the start date of the booking
-     */
-    public void setDateFrom(Date dateFrom) {
-        this.dateFrom = dateFrom;
-    }
-
-    /**
-     * Gets the start time of the booking.
-     *
-     * @return the start time of the booking
-     */
-    public String getTimeFrom() {
-        return timeFrom;
-    }
-
-    /**
-     * Sets the start time of the booking.
-     *
-     * @param timeFrom the start time of the booking
-     */
-    public void setTimeFrom(String timeFrom) {
-        this.timeFrom = timeFrom;
-    }
-
-    /**
-     * Gets the end date of the booking.
-     *
-     * @return the end date of the booking
-     */
-    public Date getDateTo() {
-        return dateTo;
-    }
-
-    /**
-     * Sets the end date of the booking.
-     *
-     * @param dateTo the end date of the booking
-     */
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
-    }
-
-    /**
-     * Gets the end time of the booking.
-     *
-     * @return the end time of the booking
-     */
-    public String getTimeTo() {
-        return timeTo;
-    }
-
-    /**
-     * Sets the end time of the booking.
-     *
-     * @param timeTo the end time of the booking
-     */
-    public void setTimeTo(String timeTo) {
-        this.timeTo = timeTo;
+    public void setAction(Button action) {
+        this.action = action;
     }
 }
