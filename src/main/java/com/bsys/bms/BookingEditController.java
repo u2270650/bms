@@ -139,7 +139,7 @@ public class BookingEditController {
         String query = "SELECT r.* FROM room r WHERE r.id NOT IN (SELECT b.room_id FROM booking b WHERE " + bookingSql + ") " + roomTypeSql;
 
         // print the constructed query for debugging purposes
-        System.err.println("Query: " + query);
+        // System.err.println("Query: " + query);
 
         // execute the query and return the result set
         return databaseController.executeSelectQuery(query);

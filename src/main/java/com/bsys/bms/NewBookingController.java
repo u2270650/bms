@@ -69,6 +69,7 @@ public class NewBookingController {
                     if(result > 0) {
                         new AlertController(Alert.AlertType.INFORMATION, "Success!", "Booking created successfully");
                         SceneController.changeScene(ev, "booking-view.fxml");
+                        BookingViewController.loadBookings("1");
                     }
                     else {
                         new AlertController(Alert.AlertType.ERROR, "FAILURE!", "Something went wrong in creating the booking. Try again later!");

@@ -36,6 +36,8 @@ public class BookingViewController {
     @FXML private TableColumn<Booking, String> booking_details;
     @FXML private TableColumn<Booking, Button> action;
     final static DatabaseController databaseController = new DatabaseController();
+    // Create a new empty ObservableList to store the retrieved data
+    private static final ObservableList<Booking> bookingData = FXCollections.observableArrayList();
     public static int selectedBookingId = 0;
 
     /**
@@ -46,17 +48,7 @@ public class BookingViewController {
      */
     @FXML
     public void initialize() {
-        cmbtype.setItems(RoomViewController.loadTypes());
-        sr_num.setCellValueFactory(new PropertyValueFactory<>("id"));
-        date_from.setCellValueFactory(new PropertyValueFactory<>("durationFrom"));
-        date_to.setCellValueFactory(new PropertyValueFactory<>("durationTo"));
-        room_name.setCellValueFactory(new PropertyValueFactory<>("roomName"));
-        room_type.setCellValueFactory(new PropertyValueFactory<>("roomType"));
-        room_capacity.setCellValueFactory(new PropertyValueFactory<>("roomCapacity"));
-        booking_details.setCellValueFactory(new PropertyValueFactory<>("bookingDetail"));
-//action.setCellValueFactory(new PropertyValueFactory<>("action"));
-
-        bookingTable.setItems(loadBookings("1"));
+        showBookings("1");
     }
 
     /**
@@ -77,7 +69,7 @@ public class BookingViewController {
         param_str += (dateTo != null) ? " AND b.date_to <='"+dateTo+"'" : "";
         param_str += (!keyword.isEmpty()) ? " AND (r.name LIKE '%"+keyword+"%' OR b.organisation LIKE '%"+keyword+"%' OR b.contact_person LIKE '%"+keyword+"%' OR b.date_from LIKE '%"+keyword+"%' )" : "";
 
-        bookingTable.setItems(loadBookings(param_str));
+        showBookings(param_str);
     }
 
     /**
@@ -91,7 +83,7 @@ public class BookingViewController {
         dtfrom.setValue(null);
         dtto.setValue(null);
         cmbtype.setValue("");
-        bookingTable.setItems(loadBookings("1"));
+        showBookings("1");
     }
     /**
 
@@ -105,6 +97,22 @@ public class BookingViewController {
         SceneController.changeScene(ev, "booking-edit.fxml");
     }
 
+    public void showBookings(String filter_param) {
+        ObservableList<Booking> list = loadBookings(filter_param);
+
+        cmbtype.setItems(RoomViewController.loadTypes());
+        sr_num.setCellValueFactory(new PropertyValueFactory<>("id"));
+        date_from.setCellValueFactory(new PropertyValueFactory<>("durationFrom"));
+        date_to.setCellValueFactory(new PropertyValueFactory<>("durationTo"));
+        room_name.setCellValueFactory(new PropertyValueFactory<>("roomName"));
+        room_type.setCellValueFactory(new PropertyValueFactory<>("roomType"));
+        room_capacity.setCellValueFactory(new PropertyValueFactory<>("roomCapacity"));
+        booking_details.setCellValueFactory(new PropertyValueFactory<>("bookingDetail"));
+        //action.setCellValueFactory(new PropertyValueFactory<>("action"));
+
+        bookingTable.setItems(list);
+    }
+
     /**
 
      This method retrieves a list of bookings from the database based on the provided filter parameter and returns an ObservableList of Booking objects.
@@ -113,10 +121,7 @@ public class BookingViewController {
 
      @return an ObservableList of Booking objects containing the retrieved data from the database
      */
-    private ObservableList<Booking> loadBookings(String filter_param) {
-        // Create a new empty ObservableList to store the retrieved data
-        ObservableList<Booking> bookingData = FXCollections.observableArrayList();
-
+    public static ObservableList<Booking> loadBookings(String filter_param) {
         // Construct the SQL query string to retrieve the required booking data from the database
         String q = "SELECT r.name, r.type, r.capacity, b.* FROM booking b join room r on b.room_id = r.id WHERE "+ filter_param;
 
@@ -126,7 +131,6 @@ public class BookingViewController {
         try {
             // Clear any existing data in the ObservableList
             bookingData.clear();
-            // Loop through each row of the ResultSet and extract the relevant data
             // Loop through each row of the ResultSet and extract the relevant data
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -180,7 +184,7 @@ public class BookingViewController {
 
      @param selectedId the ID of the booking to be edited
      */
-    private void editButton(Button action, int selectedId) {
+    private static void editButton(Button action, int selectedId) {
         action.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
