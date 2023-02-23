@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+    private static int clerk_count = 2;
     public static void main(String[] args) {
         launch(args);
     }
@@ -13,7 +13,6 @@ public class Main extends Application {
     // Override the `start` method from the Application class to setup and start the program
     @Override
     public void start(Stage primaryStage) {
-        int clerk_count = 2;
 
         // Start a new thread for the manager window
         // This is used to create a new window for the manager interface
