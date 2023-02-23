@@ -1,5 +1,6 @@
 package com.bsys.bms;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +54,7 @@ public class SceneController {
      * @param url is the name of the fxml file to be loaded for the new scene.
      * @throws IOException if the specified fxml file cannot be loaded.
      */
-    public static void changeScene(Event ev, String url) throws IOException {
+    public static void changeScene(ActionEvent ev, String url) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource(url)));
         stage = (Stage) ((Node) ev.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -61,7 +62,7 @@ public class SceneController {
         stage.show();
     }
 
-    public static boolean getRole(Event ev) throws IOException {
+    public static boolean getRole(ActionEvent ev) throws IOException {
         stage = (Stage) ((Node) ev.getSource()).getScene().getWindow();
         String windoName = stage.getTitle();
 
