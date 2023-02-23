@@ -1,12 +1,8 @@
 package com.bsys.bms;
 
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 
 /**
@@ -123,19 +119,7 @@ public class FormValidator {
      *
      * @param message The message of the alert.
      */
-    private static void showAlert(String message) throws IOException {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        // load the icon image from resource file and set it to the alert dialog box
-        URL iconPath = Main.class.getResource("images/logo.png");
-        if (iconPath != null) {
-            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image(iconPath.openStream()));
-        }
-
-        alert.showAndWait();
+    private static void showAlert(String message) {
+       AlertController.showAlert("error", message);
     }
 }

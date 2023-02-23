@@ -32,7 +32,6 @@ public class RoomEditController {
     final DatabaseController databaseController = new DatabaseController();
     private ObservableList<BlockedRoom> blockedData = FXCollections.observableArrayList();
     private int selectedRoomId = RoomViewController.selectedRoomId;
-    Object alertType = null;
     String title = null;
     String msg = null;
     @FXML
@@ -78,23 +77,22 @@ public class RoomEditController {
             String roomLocation = roomLocationTextBox.getText();
             String roomDetails = roomDetailTextArea.getText();
 
-
             if(selectedRoomId > 0) {
                 // update existing entry
                 int result = databaseController.executeUpdateQuery("UPDATE room set name = '" + roomName + "', type = '" + roomType + "', capacity = '" + roomCapacity + "', location = '" + roomLocation + "', detail = '" + roomDetails + "' WHERE id = "+ selectedRoomId);
-                alertType = (result > 0) ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
-                title = (result > 0) ? "Success" : "Failure";
+                title = (result > 0) ? "success" : "error";
                 msg = (result > 0) ? "The room was updated successfully." : "The room was not updated. Please try again.";
             }
             else {
                 // insert new entry
                 int result = databaseController.executeInsertQuery("INSERT INTO room(name, type, capacity, location, detail) VALUES ('" + roomName + "','" + roomType + "','" + roomCapacity + "','" + roomLocation + "','" + roomDetails + "')");
-                alertType = (result > 0) ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
-                title = (result > 0) ? "New Room Created" : "Creation Failed";
+                title = (result > 0) ? "success" : "error";
                 msg = (result > 0) ? "The room was created successfully." : "The room was not created. Please try again.";
             }
 
-            new AlertController(alertType, title, msg);
+            AlertController.showAlert(title, msg);
+            RoomViewController rc = new RoomViewController();
+            rc.showRooms();
             SceneController.changeScene(actionEvent, "room-view.fxml");
         }
     }
@@ -128,7 +126,6 @@ public class RoomEditController {
                     // Check if the insert was successful
                     if (result > 0) {
                         // Show success alert
-                        alertType =  Alert.AlertType.INFORMATION;
                         title = "Success";
                         msg = "Room has been Blocked";
                         // Update the blocked history view
@@ -136,29 +133,26 @@ public class RoomEditController {
                         historyView.setItems(blockedData);
                     } else {
                         // Show failure alert
-                        alertType = Alert.AlertType.ERROR;
-                        title = "Failure";
+                        title = "error";
                         msg = "We could not block the room. Please try again.";
                     }
                 }
                 else {
                     // Show error alert if date range and reason are not entered
-                    alertType = Alert.AlertType.ERROR;
-                    title = "Failed";
+                    title = "Error";
                     msg = "Enter the duration and reason to block.";
                 }
             }
         }
         else {
             // Show error alert if room id is missing or not in edit mode
-            alertType = Alert.AlertType.ERROR;
-            title = "Invalid Room Id";
+            title = "Warning";
             msg = "Room Id Parameter Missing";
             selectedRoomId = 0;
             SceneController.changeScene(ev, "room-view.fxml");
         }
 
-        new AlertController(alertType, title, msg);
+        AlertController.showAlert(title, msg);
     }
 
 

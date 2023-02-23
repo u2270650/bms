@@ -18,7 +18,7 @@ public class Main extends Application {
         // Start a new thread for the manager window
         // This is used to create a new window for the manager interface
         Thread managerThread = new Thread(() -> Platform.runLater(() -> {
-            SceneController.createWindow("Manager Window", "room-view.fxml"); // display the manager interface
+            SceneController.createWindow("Manager", "room-view.fxml"); // display the manager interface
         }));
         managerThread.start();
 

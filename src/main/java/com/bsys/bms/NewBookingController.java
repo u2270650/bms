@@ -60,19 +60,19 @@ public class NewBookingController {
             try{
                 if(!res.next()) {
                     // no available booking;
-                    new AlertController(Alert.AlertType.ERROR, "We are booked.", "There are no rooms available!");
+                    AlertController.showAlert("warning", "There are no rooms available!");
                 }
                 else {
                     // booking available cannot proceed
                     String q = "INSERT INTO booking(room_id, organisation, contact_person, contact_detail, date_from, time_from, date_to, time_to) VALUES ('"+selectedRoomId+"', '"+org_name+"', '"+cont_person+"', '"+cont_detail+"', '"+date_from+"', '"+time_from+"', '"+date_to+"', '"+time_to+"')";
                     int result = databaseController.executeInsertQuery(q);
                     if(result > 0) {
-                        new AlertController(Alert.AlertType.INFORMATION, "Success!", "Booking created successfully");
+                        AlertController.showAlert("success", "Booking created successfully");
                         SceneController.changeScene(ev, "booking-view.fxml");
                         BookingViewController.loadBookings("1");
                     }
                     else {
-                        new AlertController(Alert.AlertType.ERROR, "FAILURE!", "Something went wrong in creating the booking. Try again later!");
+                        AlertController.showAlert("error", "Something went wrong in creating the booking. Try again later!");
                     }
                 }
             } catch (SQLException e) {

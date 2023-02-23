@@ -1,13 +1,9 @@
 package com.bsys.bms;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,33 +11,30 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import javafx.scene.control.DatePicker;
 
 public class RoomViewController {
     public static int selectedRoomId;
-    private static int sr_counter =  1;
-    @FXML private TextField txtkeyword;
-    @FXML private ComboBox<String> cmbtype;
-    @FXML private TableView<Rooms> tableView;
-    @FXML private TableColumn<Rooms, Integer> sr_num;
-    @FXML private TableColumn<Rooms, String> room_name;
-    @FXML private TableColumn<Rooms, Integer> room_capacity;
-    @FXML private TableColumn<Rooms, String> room_detail;
-    @FXML private TableColumn<Rooms, String> room_type;
-    @FXML private TableColumn<Rooms, Integer> active_bookings;
-    @FXML private TableColumn<Rooms, String> action;
-    private static DatabaseController databaseController = new DatabaseController();
-    ObservableList<Rooms> roomsData = FXCollections.observableArrayList();
+    @FXML TextField txtkeyword;
+    @FXML ComboBox<String> cmbtype;
+    @FXML TableView<Rooms> tableView;
+    @FXML TableColumn<Rooms, Integer> sr_num;
+    @FXML TableColumn<Rooms, String> room_name;
+    @FXML TableColumn<Rooms, Integer> room_capacity;
+    @FXML TableColumn<Rooms, String> room_detail;
+    @FXML TableColumn<Rooms, String> room_type;
+    @FXML TableColumn<Rooms, Integer> active_bookings;
+    @FXML TableColumn<Rooms, String> action;
+    static final DatabaseController databaseController = new DatabaseController();
+    public static ObservableList<Rooms> roomsData = FXCollections.observableArrayList();
     @FXML
     private void initialize() {
         // in display mode
         cmbtype.setItems(loadTypes()); // set the items in the cmbtype ComboBox
+        showRooms();
+    }
 
+    public void showRooms() {
+        ObservableList<Rooms> data = loadRooms("1");
         // set the cell value factory for the sr_num, room_name, room_capacity, room_detail, room_type, active_bookings, and action columns
         sr_num.setCellValueFactory(new PropertyValueFactory<>("sr_num"));
         room_name.setCellValueFactory(new PropertyValueFactory<>("room_name"));
@@ -50,18 +43,11 @@ public class RoomViewController {
         room_type.setCellValueFactory(new PropertyValueFactory<>("room_type"));
         active_bookings.setCellValueFactory(new PropertyValueFactory<>("active_bookings"));
         action.setCellValueFactory(new PropertyValueFactory<>("action"));
-        roomsData.addListener(new ListChangeListener<Rooms>() {
-            @Override
-            public void onChanged(Change<? extends Rooms> change) {
-                // set the items for the tableView table
-                // System.err.println("data change logged...");
-            }
-        });
 
-        tableView.setItems(loadRooms("1"));
+        tableView.setItems(data);
     }
 
-    public void handleFilters(ActionEvent actionEvent) {
+    public void handleFilters() {
         // Get the keyword for the filter
         String keyword = txtkeyword.getText();
         // Get the selected room type for the filter
@@ -79,7 +65,7 @@ public class RoomViewController {
     }
 
 
-    public void handleReset(ActionEvent actionEvent) {
+    public void handleReset() {
         // Clear the keyword filter
         txtkeyword.setText("");
         // Clear the selected room type filter
@@ -94,31 +80,34 @@ public class RoomViewController {
     // This method handles the "Add Room" button click and switches to the add room scene
     public void handleAddRoom(ActionEvent actionEvent) throws IOException {
         // Change the scene to the add room scene
-        selectedRoomId = 0;
-        SceneController.changeScene(actionEvent, "room-edit.fxml");
+        if(SceneController.getRole(actionEvent)) {
+            selectedRoomId = 0;
+            SceneController.changeScene(actionEvent, "room-edit.fxml");
+        }
+        else {
+            AlertController.showAlert("warning", "You are not allowed to perform this action!");
+        }
     }
 
-    private void editButton(Button action, int selectedId) {
-        action.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Set the selected mode to "E" for edit mode
-                selectedRoomId = selectedId;
-
-                //System.err.println("selectedRoomId: "+selectedRoomId);
-
-                // Change the scene to the room-edit.fxml
-                try {
+    private static void editButton(Button action, int selectedId) {
+        action.setOnAction(event -> {
+            // Change the scene to the room-edit.fxml
+            try {
+                if(SceneController.getRole(event)){
+                    selectedRoomId = selectedId;
                     SceneController.changeScene(event, "room-edit.fxml");
-                } catch (IOException e) {
-                    // Throw a runtime exception if the scene change fails
-                    throw new RuntimeException(e);
                 }
+                else{
+                    AlertController.showAlert("warning", "You are not authorised to perform this action!");
+                }
+            } catch (IOException e) {
+                // Throw a runtime exception if the scene change fails
+                throw new RuntimeException(e);
             }
         });
     }
 
-    private ObservableList<Rooms> loadRooms(String filter_param) {
+    private static ObservableList<Rooms> loadRooms(String filter_param) {
         // Execute a SELECT query to retrieve the data for the rooms
         ResultSet resultSet = databaseController.executeSelectQuery("SELECT room.*, COUNT(booking.room_id) as active_booking FROM room LEFT JOIN booking ON room.id = booking.room_id WHERE "+filter_param+" GROUP BY room.id");
         try {
@@ -142,7 +131,6 @@ public class RoomViewController {
                 // Add an action listener to the "Edit" button
                 editButton(action, selectedId);
             }
-            sr_counter = a;
         } catch (SQLException e) {
             // Print the stack trace of the exception if there is an error in the database query
             e.printStackTrace();
@@ -171,5 +159,14 @@ public class RoomViewController {
 
         // Return the ObservableList
         return data;
+    }
+
+    public void termDates(ActionEvent actionEvent) throws IOException {
+        if(SceneController.getRole(actionEvent)) {
+            SceneController.changeScene(actionEvent, "term-dates.fxml");
+        }
+        else {
+            AlertController.showAlert("warning", "You are not authorised to perform this action!");
+        }
     }
 }

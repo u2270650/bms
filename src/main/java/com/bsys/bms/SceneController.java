@@ -7,24 +7,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * SceneController class is responsible for managing the scenes of the application.
  * The class has two main functions:
- *
  * createWindow: This function creates a new window with the specified title, fxml file name, width, and height.
  * changeScene: This function changes the current scene of the application to the specified fxml file.
  */
 
 public class SceneController {
-    private static Parent root;
-    private static Scene scene;
     private static Stage stage;
     @FXML public static Label login_name;
 
@@ -37,7 +34,7 @@ public class SceneController {
     public static void createWindow(String title, String fxmlFile) {
         try {
             Stage stage = new Stage();
-            stage.getIcons().add(new Image(Main.class.getResource("images/logo.png").openStream()));
+            stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResource("images/logo.png")).openStream()));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlFile));
             Pane layout = loader.load();
 
@@ -57,14 +54,17 @@ public class SceneController {
      * @throws IOException if the specified fxml file cannot be loaded.
      */
     public static void changeScene(Event ev, String url) throws IOException {
-        root = FXMLLoader.load(Main.class.getResource(url));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource(url)));
         stage = (Stage) ((Node) ev.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void setLoginName(String name) {
-        login_name.setText(name);
+    public static boolean getRole(Event ev) throws IOException {
+        stage = (Stage) ((Node) ev.getSource()).getScene().getWindow();
+        String windoName = stage.getTitle();
+
+        return Objects.equals(windoName, "Manager");
     }
 }

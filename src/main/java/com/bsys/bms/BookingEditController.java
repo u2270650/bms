@@ -104,28 +104,38 @@ public class BookingEditController {
         String time_from = (!timeFrom.getSelectionModel().isEmpty()) ? timeFrom.getSelectionModel().getSelectedItem().toLowerCase() : "";
         String time_to = (!timeTo.getSelectionModel().isEmpty()) ? timeTo.getSelectionModel().getSelectedItem().toLowerCase() : "";
         String room_type = (!roomType.getSelectionModel().isEmpty()) ? roomType.getSelectionModel().getSelectedItem().toLowerCase() : "";
-        // Construct SQL query parameters
-        String param_str2 = "1";
-        String param_str = "";
-        param_str += (!room_type.equals("")) ? " AND r.type = '"+room_type+"' " : "";
 
-        param_str2 += (date_from != null) ? " AND b.date_from = '"+date_from+"' " : "";
-        param_str2 += (!time_from.equals("")) ? " AND b.time_from = '"+time_from+"' " : "";
-        param_str2 += (date_to != null) ? " AND b.date_to = '"+date_to+"' " : "";
-        param_str2 += (!time_to.equals("")) ? " AND b.time_to = '"+time_to+"' " : "";
-
-        // Store the constructed query parameters
-        paramStr = param_str;
-        paramStr2 = param_str2;
-
-        // Call the "get_availability" method with the constructed query parameters
-        ResultSet res = get_availability(param_str, param_str2);
-
-        // If no rooms are available, display a message to the user; otherwise, display the available rooms
-        if(!res.next())
-            messageLabel.setText("No rooms available for the search criteria");
+        String q = "SELECT * FROM term_dates WHERE datefrom <= '"+date_from+"' AND dateto >= '"+date_to+"' ";;
+        ResultSet isTermTime = databaseController.executeSelectQuery(q);
+        if(isTermTime.next() && time_from.equalsIgnoreCase("am")) {
+            String txt = "You cannot make a booking in the 'AM' session during term time.";
+            messageLabel.setText(txt);
+            AlertController.showAlert("warning", txt);
+        }
         else {
-            display_availability(res);
+            // Construct SQL query parameters
+            String param_str2 = "1";
+            String param_str = "";
+            param_str += (!room_type.equals("")) ? " AND r.type = '"+room_type+"' " : "";
+
+            param_str2 += (date_from != null) ? " AND b.date_from = '"+date_from+"' " : "";
+            param_str2 += (!time_from.equals("")) ? " AND b.time_from = '"+time_from+"' " : "";
+            param_str2 += (date_to != null) ? " AND b.date_to = '"+date_to+"' " : "";
+            param_str2 += (!time_to.equals("")) ? " AND b.time_to = '"+time_to+"' " : "";
+
+            // Store the constructed query parameters
+            paramStr = param_str;
+            paramStr2 = param_str2;
+
+            // Call the "get_availability" method with the constructed query parameters
+            ResultSet res = get_availability(param_str, param_str2);
+
+            // If no rooms are available, display a message to the user; otherwise, display the available rooms
+            if(!res.next())
+                messageLabel.setText("No rooms available for the search criteria");
+            else {
+                display_availability(res);
+            }
         }
     }
     /**

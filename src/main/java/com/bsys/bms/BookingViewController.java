@@ -203,4 +203,9 @@ public class BookingViewController {
             }
         });
     }
+
+    @FXML
+    private void gotorooms(ActionEvent ev) throws IOException {
+        SceneController.changeScene(ev, "room-view.fxml");
+    }
 }

@@ -7,46 +7,53 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
-/**
-
- AlertController class provides a simple way to display an alert dialog box
-
- with specified alert type, title, message and an optional icon.
- */
 public class AlertController {
 
+    private static final String ICON_PATH = "images/logo.png";
+
     /**
-
-     Constructor that creates an alert dialog box with specified alert type, title and message.
-
-     @param alertType the type of the alert, can be one of Alert.AlertType enum values.
-
-     @param title the title of the alert dialog box.
-
-     @param message the message to display in the alert dialog box.
-
-     @throws IOException if an error occurs while reading the icon image file.
+     * Constructor that creates an alert dialog box with specified alert type, title and message.
+     *
+     * @param title     the title of the alert dialog box.
+     * @param message   the message to display in the alert dialog box.
      */
-    public AlertController(Object alertType, String title, String message) throws IOException {
-        // check if both title and message are not null
-        if (title != null && message != null) {
-            // create a new Alert object with specified alert type
-            Alert alert = new Alert((Alert.AlertType) alertType);
+    public AlertController(String title, String message) {
+        showAlert(title, message);
+    }
 
-            // set the title and message of the alert dialog box
-            alert.setTitle(title);
+    /**
+     * Static method that displays an alert dialog box with specified alert type, title, and message.
+     *
+     * @param title     the title of the alert dialog box.
+     * @param message   the message to display in the alert dialog box.
+     */
+    public static void showAlert(String title, String message) {
+        if (title != null && message != null) {
+            Alert.AlertType alertType = Alert.AlertType.NONE;
+
+            if (title.equalsIgnoreCase("Information")) {
+                alertType = Alert.AlertType.INFORMATION;
+            } else if (title.equalsIgnoreCase("Warning")) {
+                alertType = Alert.AlertType.WARNING;
+            } else if (title.equalsIgnoreCase("Success")) {
+                alertType = Alert.AlertType.CONFIRMATION;
+            } else if (title.equalsIgnoreCase("Error")) {
+                alertType = Alert.AlertType.ERROR;
+            }
+
+            Alert alert = new Alert(alertType);
+            alert.setTitle(title.toUpperCase());
             alert.setHeaderText(null);
             alert.setContentText(message);
 
-            // load the icon image from resource file and set it to the alert dialog box
-            URL iconPath = Main.class.getResource("images/logo.png");
-            if (iconPath != null) {
+            URL path = AlertController.class.getResource(ICON_PATH);
+            if (path != null) {
                 Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image(iconPath.openStream()));
+                stage.getIcons().add(new Image(path.toExternalForm()));
             }
 
-            // display the alert dialog box and wait for user response
             alert.showAndWait();
         }
     }
+
 }

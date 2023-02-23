@@ -12,9 +12,9 @@ import java.sql.Statement;
  */
 public class DatabaseController {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://selene.hud.ac.uk:3306/u2270650";
-    private static final String USERNAME = "u2270650";
-    private static final String PASSWORD = "GM05aug98gm";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/bookingsys";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "";
 
     private Connection connection = null;
 

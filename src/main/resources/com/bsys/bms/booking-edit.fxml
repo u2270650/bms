@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.BookingEditController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsys.bms.BookingEditController">
     <stylesheets>
         <URL value="@style/style.css" />
     </stylesheets>
@@ -18,7 +12,7 @@
     <fx:include source="header.fxml" />
     <!--        Header: end-->
     <Button layoutX="885.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleBack" styleClass="button-back" text="Back" />
-    <Label layoutX="28.0" layoutY="59.0" styleClass="header" text="New Booking" />
+    <Label layoutX="28.0" layoutY="59.0" styleClass="header" text="Check Availability" />
     <Label layoutX="29.0" layoutY="107.0" styleClass="text-label" text="Select Room" />
     <Label layoutX="223.0" layoutY="108.0" styleClass="text-label" text="Date Time From" />
     <Label layoutX="420.0" layoutY="107.0" styleClass="text-label" text="Date Time To" />
